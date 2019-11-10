@@ -9,7 +9,7 @@ ENV PATH webapp/node_modules/.bin:$PATH
 
 # install and cache app dependencies
 COPY webapp/package.json package.json
-RUN npm install
+RUN npm install --no-package-lock
 RUN npm install react-scripts@3.2 -g 
 
 # start app
