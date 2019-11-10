@@ -1,0 +1,6 @@
+*.wt
+WiredTiger*
+diagnostic*
+storage.bson
+journal
+mongod.lock
