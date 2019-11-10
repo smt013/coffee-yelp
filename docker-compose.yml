@@ -1,0 +1,13 @@
+version: '3.7'
+services:
+  webapp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - '/Users/sarahgeorge/Volumes/data/coffee-yelp/webapp:/webapp'
+      - '/webapp/node_modules'
+    ports:
+      - '3001:3000'
+    environment:
+      - NODE_ENV=development
