@@ -3,11 +3,22 @@ services:
   webapp:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: webapp/Dockerfile
     volumes:
       - '/Users/sarahgeorge/Volumes/data/coffee-yelp/webapp:/webapp'
       - '/webapp/node_modules'
     ports:
-      - '3001:3000'
+      - '3000:3000'
     environment:
       - NODE_ENV=development
+  mongodb:
+    image: mvertes/alpine-mongo
+    build:
+      context: .
+      dockerfile: mongodb/Dockerfile
+    volumes:
+      - '/Users/sarahgeorge/Volumes/data/coffee-yelp/mongodb:/data/db'
+    ports:
+      - '27017:27017'
+volumes:
+  mongodb:
