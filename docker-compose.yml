@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: webapp/Dockerfile
     volumes:
-      - '/Users/sarahgeorge/Volumes/data/coffee-yelp/webapp:/webapp'
+      - './webapp:/webapp'
       - '/webapp/node_modules'
     ports:
       - '3000:3000'
@@ -17,7 +17,7 @@ services:
       context: .
       dockerfile: mongodb/Dockerfile
     volumes:
-      - '/Users/sarahgeorge/Volumes/data/coffee-yelp/mongodb:/data/db'
+      - './mongodb:/data/db'
     ports:
       - '27017:27017'
 volumes:
