@@ -5,14 +5,18 @@ import './index.css';
 import App from './App';
 import LoginView from './views/LoginView/LoginView'
 import * as serviceWorker from './serviceWorker';
+import { Provider } from 'react-redux'
+import store from './store/store'
 
 const routing = (
-  <Router>
-    <div>
-      <Route exact path="/" component={App} />
-      <Route path="/LoginView" component={LoginView} />
-    </div>
-  </Router>
+  <Provider store={store}>
+    <Router>
+      <div>
+        <Route exact path="/" component={LoginView} />
+        <Route path="/LoginView" component={LoginView} />
+      </div>
+    </Router>
+  </Provider>
 )
 
 ReactDOM.render(routing, document.getElementById('root'));
