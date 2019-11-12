@@ -1,5 +1,5 @@
 import React from 'react';
-import LoginView from './views/LoginView/LoginView'
+//import LoginView from './views/LoginView/LoginView'
 import './App.css';
 
 function App() {

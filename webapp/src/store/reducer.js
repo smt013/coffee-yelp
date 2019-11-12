@@ -1,4 +1,4 @@
-import { SET_LOGIN_CREDS} from './actions'
+import { SET_LOGIN_CREDS } from './actions'
 
 const initialState = {
   username: null,
@@ -10,8 +10,8 @@ export const setLogin = (previousState = initialState, action) => {
     case SET_LOGIN_CREDS:
       return {
         ...previousState,
-        username: action.username,
-        password: action.password
+        username: action.payload.username.value,
+        password: action.payload.password.value
       }
     default:
       return previousState

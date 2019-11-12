@@ -1,12 +1,11 @@
 import React from 'react'
-import {TextField, Button, Checkbox, Container, FormControlLabel,CssBaseline,
-	Avatar, Grid, Typography} from '@material-ui/core'
-
+import { TextField, Button, Checkbox, Container, FormControlLabel,CssBaseline,
+	Avatar, Grid, Typography } from '@material-ui/core'
 import LocalCafeIcon from '@material-ui/icons/LocalCafe';
 import './LoginView.css'
-import {setLogin} from '../../store/actions'
+import { setLogin } from '../../store/actions'
 import { useDispatch } from 'react-redux'
-import store from '../../store/store'
+//import store from '../../store/store'
 
 const LoginView = ({}) => {
 
@@ -16,38 +15,38 @@ const LoginView = ({}) => {
 		let username = document.getElementById("username")
 		let password = document.getElementById("password")
 		let creds = {username, password}
-		console.log("before")
+
 		dispatch(setLogin(creds))
-		console.log("HERE")
-		console.log(store.getState())
 	}
 
 	const renderForm = () => {
 		return (
 			<form>
-				<TextField classes="MuiFormControl-root MuiTextField-root"
-					id="username" type="Email Address"
+				<TextField id="username"
+					type="Email Address"
 					label="Email Address *"
 					variant="outlined"
-					fullWidth="true"/>
+					fullWidth
+				/>
 
-				<TextField classes="MuiFormControl-root MuiTextField-root"
-					id="password" type="Password" label="Password *"
+				<TextField id="password"
+					type="Password"
+					label="Password *"
 					variant="outlined"
-					fullWidth="true"/>
+					fullWidth
+				/>
 
-					<FormControlLabel
-						control = {
-							<Checkbox value="remember" color="primary"/>
-						}
-						label="Remember me"
-					/>
+				<FormControlLabel
+					control = {
+						<Checkbox value="remember" color="primary"/>
+					}
+					label="Remember me"
+				/>
 
-				<Button
-					color="primary"
+				<Button color="primary"
 					variant="contained"
-					fullWidth="true"
-					onClick={dispatchLoginCreds}>
+					fullWidth
+					onClick={dispatchLoginCreds} >
 					Login
 				</Button>
 			</form>
