@@ -4,6 +4,7 @@ import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
 import './index.css';
 import App from './App';
 import LoginView from './views/LoginView/LoginView'
+import HomePage from './views/HomePage/HomePage'
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux'
 import store from './store/store'
@@ -14,6 +15,7 @@ const routing = (
       <div>
         <Route exact path="/" component={LoginView} />
         <Route path="/LoginView" component={LoginView} />
+        <Route path="/HomePage" component={HomePage} />
       </div>
     </Router>
   </Provider>

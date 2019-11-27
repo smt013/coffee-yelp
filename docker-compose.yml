@@ -1,24 +1,39 @@
 version: '3.7'
 services:
-  webapp:
-    build:
-      context: .
-      dockerfile: webapp/Dockerfile
-    volumes:
-      - './webapp:/webapp'
-      - '/webapp/node_modules'
-    ports:
-      - '3000:3000'
-    environment:
-      - NODE_ENV=development
-  mongodb:
-    image: mvertes/alpine-mongo
-    build:
-      context: .
-      dockerfile: mongodb/Dockerfile
-    volumes:
-      - './mongodb:/data/db'
-    ports:
-      - '27017:27017'
+    webapp:
+        build:
+            context: .
+            dockerfile: webapp/Dockerfile
+        volumes:
+            - './webapp:/webapp'
+            - '/webapp/node_modules'
+        ports:
+            - '3000:3000'
+        environment:
+            - NODE_ENV=development
+    mongodb:
+        image: mvertes/alpine-mongo
+        build:
+            context: .
+            dockerfile: mongodb/Dockerfile
+        volumes:
+            - './mongodb:/data/db'
+        ports:
+            - '27017:27017'
+    my-golang-app-run:
+        container_name: my-golang-app-run
+        build: 
+            context: .
+            dockerfile: go-server/Dockerfile
+        command: go run main.go
+        volumes:
+            - './go-server/src:/go/src/app'
+        working_dir: /go/src/app
+        ports:
+            - '3030:3030'
+        expose:
+            - 3030
+              #environment:
+              #PORT: 3001
 volumes:
   mongodb:
