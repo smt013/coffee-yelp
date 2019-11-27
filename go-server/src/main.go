@@ -7,7 +7,7 @@ import (
 func main() {
  var PORT string
  if PORT = os.Getenv("PORT"); PORT == "" {
-  PORT = "3001"
+  PORT = "8080"
  }
  http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
   fmt.Fprintf(w, "Hello World from path: %s\n", r.URL.Path)
