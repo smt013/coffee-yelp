@@ -1,4 +1,4 @@
-import { SET_LOGIN_CREDS } from './actions'
+import * as actions from './consts'
 
 const initialState = {
   username: null,
@@ -7,41 +7,29 @@ const initialState = {
   lastname: null,
   token: null,
   authErr: false,
-  authErrMessage: null
+  authErrMessage: null,
+  startingLogin: false
 }
 
 export const setLogin = (previousState = initialState, action) => {
   switch(action.type) {
-    case SET_LOGIN_CREDS:
-      console.log("Payload: ", JSON.stringify(action.payload))
-      fetch('http://0.0.0.0:8080/login', {
-
-        method: 'POST',
-        header: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        //body: JSON.stringify(action.payload)
-        body: action.payload
-      })
-      .then( response => response.json())
-      .then(res => {
+    case actions.START_LOGIN:
         return {
-          ...previousState,
-          username: res.username,
-          firstname: res.firstname,
-          lastname: res.lastname,
-          token: res.token
+            ...previousState,
+            startingLogin: true
         }
-      }).catch( err => {
-
-        console.log("fetch error: ", err)
+    case actions.FINISH_LOGIN:
         return {
-          ...previousState,
-          authErr: true,
-          authErrMessage: err.error
+            ...previousState,
+            startingLogin: false,
+            username: action.payload.username,
+            password: action.payload.password,
         }
-      });
-      break
+    case actions.FAILED_LOGIN:
+        return {
+            ...previousState,
+            authErr: true
+        }
     default:
       return previousState
   }

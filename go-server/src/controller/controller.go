@@ -10,7 +10,7 @@ import (
 	"log"
 	"net/http"
 
-	jwt "github.com/dgrijalva/jwt-go"
+	"github.com/dgrijalva/jwt-go"
     "go.mongodb.org/mongo-driver/bson"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -90,24 +90,38 @@ func RegisterHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func LoginHandler(w http.ResponseWriter, r *http.Request) {
-  w.Header().Set("Access-Control-Allow-Origin", "*")
+    w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
 	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
-	w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
-	w.Header().Set("Content-Type", "application/x-www-form-urlencoded")
+	w.Header().Set("Access-Control-Allow-Headers", "Origin, X-Requested-With, Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+	//w.Header().Set("Content-Type", "application/x-www-form-urlencoded")
+	w.Header().Set("Content-Type", "application/json")
+
+	// headers := r.Header()
+    // headers.Add("Access-Control-Allow-Origin", "*")
+    // headers.Add("Vary", "Origin")
+    // headers.Add("Vary", "Access-Control-Request-Method")
+    // headers.Add("Vary", "Access-Control-Request-Headers")
+    // headers.Add("Access-Control-Allow-Headers", "Content-Type, Origin, Accept, token")
+    // headers.Add("Access-Control-Allow-Methods", "POST,OPTIONS")
+
+	//err := json.NewDecoder(r.Body).Decode(&p)
+
 	if (*r).Method == "OPTIONS" {
 		return
 	}
-	user := model.User{}
+	var user model.User
 	// body, _ := ioutil.ReadAll(r.Body)
 	// err := json.Unmarshal(body, &user)
 	// if err != nil {
 	// 	log.Fatal(err)
 	// }
 
-	user.Username = r.FormValue("username")
-	user.Password = r.FormValue("password")
+	err := json.NewDecoder(r.Body).Decode(&user)
 
-	fmt.Printf("Username: %+v \n", user)
+	//user.Username = r.FormValue("username")
+	//user.Password = r.FormValue("password")
+
+	fmt.Printf("User: %+v \n Response: %v", user, r.Body)
 
 	collection, err := db.GetDBCollection()
 
@@ -122,6 +136,7 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		res.Error = "Invalid username"
+		w.WriteHeader(401)
 		json.NewEncoder(w).Encode(res)
 		return
 	}
@@ -130,6 +145,7 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		res.Error = "Invalid password"
+		w.WriteHeader(401)
 		json.NewEncoder(w).Encode(res)
 		return
 	}
@@ -144,6 +160,7 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		res.Error = "Error while generating token,Try again"
+		w.WriteHeader(500)
 		json.NewEncoder(w).Encode(res)
 		return
 	}
@@ -151,6 +168,7 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 	result.Token = tokenString
 	result.Password = ""
 
+	w.WriteHeader(200)
 	json.NewEncoder(w).Encode(result)
 
 }
