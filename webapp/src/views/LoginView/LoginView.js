@@ -1,16 +1,6 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import {
-	TextField,
-	Button,
-	Checkbox,
-	Container,
-	FormControlLabel,
-	CssBaseline,
-	Avatar,
-	Grid,
-	Typography
-} from '@material-ui/core'
+import { TextField, Button, Checkbox, Container, FormControlLabel,CssBaseline,
+	Avatar, Grid, Typography } from '@material-ui/core'
 import LocalCafeIcon from '@material-ui/icons/LocalCafe';
 import './LoginView.css'
 import { setLogin } from '../../store/actions'
@@ -20,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux'
 const LoginView = () => {
 
 	const dispatch = useDispatch()
-	const authErr = useSelector( state => state.authErr )
+	let authErr = useSelector(state => state.authErr)
 
 	const dispatchLoginCreds = () => {
 		let username = document.getElementById("username").value
@@ -46,23 +36,21 @@ const LoginView = () => {
 					variant="outlined"
 					fullWidth
 				/>
-
+				{authErr && <Typography variant="body1">Invalid username or password</Typography>}
 				<FormControlLabel
 					control = {
 						<Checkbox value="remember" color="primary"/>
 					}
 					label="Remember me"
 				/>
-				<Link to={authErr ? '/LoginView' : '/HomePage'}>
-					<Button color="primary"
-						variant="contained"
-						fullWidth
-						onClick={dispatchLoginCreds} >
-						Login
-					</Button>
-				</Link>
-			</form>
 
+				<Button color="primary"
+					variant="contained"
+					fullWidth
+					onClick={dispatchLoginCreds} >
+					Login
+				</Button>
+			</form>
 		)
 	}
 
