@@ -14,24 +14,26 @@ services:
     mongodb:
         image: mvertes/alpine-mongo
         build:
-            context: .
-            dockerfile: mongodb/Dockerfile
+          context: .
+          dockerfile: mongodb/Dockerfile
         volumes:
-            - './mongodb:/data/db'
+          - './mongodb:/data/db'
         ports:
-            - '27017:27017'
-    my-golang-app-run:
-        container_name: my-golang-app-run
-        build: 
-            context: .
-            dockerfile: go-server/Dockerfile
-        command: go run main.go
-        volumes:
-            - './go-server/src:/go/src/app'
-        working_dir: /go/src/app
-        ports:
-            - '8080:8080'
-        environment:
-            PORT: 8080
+          - '27017:27017'
+        expose:
+          - '27017'
+    go-server:
+      container_name: gobuild
+      build:
+        context: ./go-server
+        dockerfile: Dockerfile
+      command: go run main.go
+      volumes:
+        - './go-server/src:/go/src'
+      working_dir: /go
+      ports:
+        - '8080:8080'
+      environment:
+        PORT: 8080
 volumes:
   mongodb:

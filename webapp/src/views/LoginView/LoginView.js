@@ -1,19 +1,30 @@
 import React from 'react'
-import { TextField, Button, Checkbox, Container, FormControlLabel,CssBaseline,
-	Avatar, Grid, Typography } from '@material-ui/core'
+import { Link } from 'react-router-dom'
+import {
+	TextField,
+	Button,
+	Checkbox,
+	Container,
+	FormControlLabel,
+	CssBaseline,
+	Avatar,
+	Grid,
+	Typography
+} from '@material-ui/core'
 import LocalCafeIcon from '@material-ui/icons/LocalCafe';
 import './LoginView.css'
 import { setLogin } from '../../store/actions'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 //import store from '../../store/store'
 
-const LoginView = ({}) => {
+const LoginView = () => {
 
 	const dispatch = useDispatch()
+	const authErr = useSelector( state => state.authErr )
 
 	const dispatchLoginCreds = () => {
-		let username = document.getElementById("username")
-		let password = document.getElementById("password")
+		let username = document.getElementById("username").value
+		let password = document.getElementById("password").value
 		let creds = {username, password}
 
 		dispatch(setLogin(creds))
@@ -42,14 +53,16 @@ const LoginView = ({}) => {
 					}
 					label="Remember me"
 				/>
-
-				<Button color="primary"
-					variant="contained"
-					fullWidth
-					onClick={dispatchLoginCreds} >
-					Login
-				</Button>
+				<Link to={authErr ? '/LoginView' : '/HomePage'}>
+					<Button color="primary"
+						variant="contained"
+						fullWidth
+						onClick={dispatchLoginCreds} >
+						Login
+					</Button>
+				</Link>
 			</form>
+
 		)
 	}
 

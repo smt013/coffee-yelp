@@ -1,8 +1,7 @@
-FROM golang:alpine
-ADD /go-server/src /go/src/app
-WORKDIR /go/src/app
+FROM golang:latest
+
+ADD . /go
+WORKDIR /go
 ENV PORT=8080
-#RUN go build -o main .
-#EXPOSE 3030
-#CMD ["./main"]
+EXPOSE 8080
 CMD ["go", "run", "main.go"]
