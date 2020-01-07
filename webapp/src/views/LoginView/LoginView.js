@@ -1,14 +1,13 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { TextField, Button, Checkbox, Container, FormControlLabel,CssBaseline,
 	Avatar, Grid, Typography } from '@material-ui/core'
-import LocalCafeIcon from '@material-ui/icons/LocalCafe';
+import LocalCafeIcon from '@material-ui/icons/LocalCafe'
 import './LoginView.css'
 import { setLogin } from '../../store/actions'
 import { useDispatch, useSelector } from 'react-redux'
-//import store from '../../store/store'
 
 const LoginView = () => {
-
 	const dispatch = useDispatch()
 	let authErr = useSelector(state => state.authErr)
 
@@ -21,6 +20,7 @@ const LoginView = () => {
 	}
 
 	const renderForm = () => {
+
 		return (
 			<form>
 				<TextField id="username"
@@ -36,7 +36,11 @@ const LoginView = () => {
 					variant="outlined"
 					fullWidth
 				/>
-				{authErr && <Typography variant="body1">Invalid username or password</Typography>}
+				{authErr &&
+					<Typography variant="body1" color="error">
+						Invalid username or password
+					</Typography>
+				}
 				<FormControlLabel
 					control = {
 						<Checkbox value="remember" color="primary"/>
@@ -44,12 +48,14 @@ const LoginView = () => {
 					label="Remember me"
 				/>
 
-				<Button color="primary"
+				<Button component={Link} to="/HomePage"
+					color="primary"
 					variant="contained"
 					fullWidth
 					onClick={dispatchLoginCreds} >
 					Login
 				</Button>
+
 			</form>
 		)
 	}
@@ -64,7 +70,7 @@ const LoginView = () => {
 					</Avatar>
 				</Grid>
 				<div className="signin">
-					<Typography component="h1" variant="h5" align="center" className=".MuiTypography-root">
+					<Typography variant="h5" align="center" className=".MuiTypography-root">
 						Sign in
 					</Typography>
 				</div>

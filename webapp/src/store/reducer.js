@@ -7,6 +7,7 @@ const initialState = {
   lastname: null,
   token: null,
   authErr: false,
+  authenticated: false,
   authErrMessage: null,
   startingLogin: false
 }
@@ -24,6 +25,8 @@ export const setLogin = (previousState = initialState, action) => {
             startingLogin: false,
             username: action.payload.username,
             password: action.payload.password,
+            authErr: false,
+            authenticated: true
         }
     case actions.FAILED_LOGIN:
         return {

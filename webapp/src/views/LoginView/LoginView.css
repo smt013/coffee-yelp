@@ -1,8 +1,7 @@
 .input {
-  marginTop: theme.spacing(8);
   display: flex;
-  flexDirection: column;
-  alignItems: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 .MuiContainer-root {
@@ -29,10 +28,6 @@
   margin-bottom: 100px;
 }
 
-.MuiFormGroup-root {
-  align-items:
-}
-
 .MuiFormControlLabel-root {
   align-items: left;
   position: left;
@@ -40,7 +35,6 @@
 
 .MuiGrid-root {
   margin-bottom: 20px;
-  backgroundColor: theme.palette.secondary.main;
 }
 
 .MuiSvgIcon-colorAction {
@@ -50,11 +44,3 @@
 .MuiTypography-root {
   margin: 20px;
 }
-
-/*.MuiAvatar-colorDefault {
-  display: flex;
-  align-items: center;
-}*/
-
-
-/*MuiAvatar-circle MuiAvatar-colorDefault*/

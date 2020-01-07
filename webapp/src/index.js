@@ -6,16 +6,24 @@ import './index.css';
 import LoginView from './views/LoginView/LoginView'
 import HomePage from './views/HomePage/HomePage'
 import * as serviceWorker from './serviceWorker';
-import { Provider } from 'react-redux'
+import { Provider, useSelector } from 'react-redux'
 import store from './store/store'
+import AppWrapper from './AppWrapper'
+
+let state = store.getState()
+let authenticated = useSelector(state => state.authenticated)
+console.log("AUTHENIticated: ", state.authenticated)
 
 const routing = (
   <Provider store={store}>
     <Router>
       <div>
-        <Route exact path="/" component={LoginView} />
+        {/* <Route exact path="/" component={LoginView} />
         <Route path="/LoginView" component={LoginView} />
-        <Route path="/HomePage" component={HomePage} />
+        <Route path="/HomePage" component={HomePage} /> */}
+
+        <Route path="/login" component={LoginView} />
+        <Route path="/" component={AppWrapper} />
       </div>
     </Router>
   </Provider>

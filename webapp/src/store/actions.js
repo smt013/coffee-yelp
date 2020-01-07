@@ -29,10 +29,12 @@ export const setLogin = payload => {
             if( response.status !== 200 ) {
                 dispatch(failedLogin())
             }
-            response.json()
-        })
-        .then(json => {
-            dispatch(finishLogin(payload, json))
+            else {
+                response.json()
+                .then(json => {
+                    dispatch(finishLogin(payload, json))
+                })
+            }
         })
     }
 }
