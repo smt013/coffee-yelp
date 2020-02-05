@@ -1,17 +1,18 @@
 package controller
 
 import (
+	"config/db"
 	"context"
 	"encoding/json"
 	"fmt"
-	"config/db"
 	"model"
+
 	//"io/ioutil"
 	"log"
 	"net/http"
 
 	"github.com/dgrijalva/jwt-go"
-    "go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -24,18 +25,17 @@ func RegisterHandler(w http.ResponseWriter, r *http.Request) {
 	//body, _ := ioutil.ReadAll(r.Body)
 
 	user = model.User{
-		Username: r.FormValue("username"),
+		Username:  r.FormValue("username"),
 		FirstName: r.FormValue("firstname"),
-		LastName: r.FormValue("lastname"),
-		Password: r.FormValue("password"),
-		Token: r.FormValue("token"),
+		LastName:  r.FormValue("lastname"),
+		Password:  r.FormValue("password"),
+		Token:     r.FormValue("token"),
 	}
 
 	// err := json.Unmarshal(body, &user)
 	var res model.ResponseResult
 
 	fmt.Printf("AFTER UNMARSHAL %v HI", user)
-
 
 	// if err != nil {
 	// 	res.Error = err.Error()
@@ -90,19 +90,19 @@ func RegisterHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func LoginHandler(w http.ResponseWriter, r *http.Request) {
-    w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
+	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
 	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
 	w.Header().Set("Access-Control-Allow-Headers", "Origin, X-Requested-With, Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
 	//w.Header().Set("Content-Type", "application/x-www-form-urlencoded")
 	w.Header().Set("Content-Type", "application/json")
 
 	// headers := r.Header()
-    // headers.Add("Access-Control-Allow-Origin", "*")
-    // headers.Add("Vary", "Origin")
-    // headers.Add("Vary", "Access-Control-Request-Method")
-    // headers.Add("Vary", "Access-Control-Request-Headers")
-    // headers.Add("Access-Control-Allow-Headers", "Content-Type, Origin, Accept, token")
-    // headers.Add("Access-Control-Allow-Methods", "POST,OPTIONS")
+	// headers.Add("Access-Control-Allow-Origin", "*")
+	// headers.Add("Vary", "Origin")
+	// headers.Add("Vary", "Access-Control-Request-Method")
+	// headers.Add("Vary", "Access-Control-Request-Headers")
+	// headers.Add("Access-Control-Allow-Headers", "Content-Type, Origin, Accept, token")
+	// headers.Add("Access-Control-Allow-Methods", "POST,OPTIONS")
 
 	//err := json.NewDecoder(r.Body).Decode(&p)
 

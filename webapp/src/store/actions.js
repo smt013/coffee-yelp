@@ -1,4 +1,5 @@
 import * as actions from './consts'
+import history from '../history'
 
 export const startLogin = (payload) => ({
     type: actions.START_LOGIN,
@@ -30,6 +31,8 @@ export const setLogin = payload => {
                 dispatch(failedLogin())
             }
             else {
+                history.replace('/home')
+                console.log(history)
                 response.json()
                 .then(json => {
                     dispatch(finishLogin(payload, json))

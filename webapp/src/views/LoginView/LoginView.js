@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router'
 import { TextField, Button, Checkbox, Container, FormControlLabel,CssBaseline,
 	Avatar, Grid, Typography } from '@material-ui/core'
 import LocalCafeIcon from '@material-ui/icons/LocalCafe'
@@ -9,7 +9,9 @@ import { useDispatch, useSelector } from 'react-redux'
 
 const LoginView = () => {
 	const dispatch = useDispatch()
-	let authErr = useSelector(state => state.authErr)
+	const history = useHistory()
+	const authErr = useSelector(state => state.authErr)
+	const authenticated = useSelector(state => state.authenticated)
 
 	const dispatchLoginCreds = () => {
 		let username = document.getElementById("username").value
@@ -17,7 +19,20 @@ const LoginView = () => {
 		let creds = {username, password}
 
 		dispatch(setLogin(creds))
+		// .then(() => {
+		// 	console.log("authErr ", authErr, " authenticated ", authenticated)
+		// 	if(!authErr &&  authenticated) {
+		// 		history.replace("/home")
+		// 	}
+		// })
 	}
+
+	// const handleSubmit = () => {
+	// 	dispatchLoginCreds()
+	// 	.then(() => {
+	// 		history.replace("/home")
+	// 	})
+	// }
 
 	const renderForm = () => {
 
@@ -48,11 +63,11 @@ const LoginView = () => {
 					label="Remember me"
 				/>
 
-				<Button component={Link} to="/HomePage"
+				<Button
 					color="primary"
 					variant="contained"
 					fullWidth
-					onClick={dispatchLoginCreds} >
+					onClick={dispatchLoginCreds}>
 					Login
 				</Button>
 

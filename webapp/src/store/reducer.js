@@ -31,7 +31,8 @@ export const setLogin = (previousState = initialState, action) => {
     case actions.FAILED_LOGIN:
         return {
             ...previousState,
-            authErr: true
+            authErr: true,
+            authenticated: false
         }
     default:
       return previousState
